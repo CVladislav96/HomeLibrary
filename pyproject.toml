@@ -1,0 +1,66 @@
+[project]
+name = "homelibrary"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "flask>=3.1.2",
+    "flask-cors>=6.0.2",
+    "flask-marshmallow>=1.4.0",
+    "marshmallow-sqlalchemy>=1.4.2",
+    "psycopg2-binary>=2.9.11",
+    "pydantic>=2.12.5",
+    "pydantic-settings>=2.0.0",
+    "python-dotenv>=1.2.1",
+    "sqlalchemy>=2.0.46",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.15.0",
+]
+
+[tool.ruff]
+# Выбор правил (рекомендуемый набор для начала)
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort imports sorting
+    "UP",  # pyupgrade - современный синтаксис
+    "C4",  # flake8-comprehensions
+    "B",   # flake8-bugbear
+    "A",   # flake8-builtins
+    "Q",   # flake8-quotes
+    "DTZ", # flake8-datetimez
+    "SIM", # flake8-simplify
+    "ARG", # flake8-unused-arguments
+    "PTH", # flake8-use-pathlib
+    "RUF", # ruff-specific rules
+]
+
+# Игнорировать определенные правила
+ignore = [
+    "E501",  # line too long (обрабатывается форматтером)
+    "B008",  # do not perform function calls in argument defaults
+    "C901",  # too complex
+]
+
+# Максимальная длина строки
+line-length = 88
+
+# Автофикс доступных проблем
+fixable = ["ALL"]
+unfixable = []
+
+# Настройки сортировки импортов (I правил)
+[tool.ruff.isort]
+known-first-party = ["my_app"]
+lines-after-imports = 2
+combine-as-imports = true
+
+# Настройки форматирования (опционально, если не используете black)
+[tool.ruff.format]
+quote-style = "double"
+indent-width = 4
