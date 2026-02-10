@@ -1,5 +1,7 @@
-from pydentic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from typing import Optional
+from models.book import StatusBook
+
 
 class BookBase(BaseModel):
     title: str
@@ -11,13 +13,12 @@ class BookCreate(BookBase):
     pass
 
 class BookUpdate(BookBase):
-    pass
+    status: Optional[StatusBook] = None
 
 class BookRead(BookBase):
     id: int
-
-    class Config:
-        orm_mode = True
+    status: StatusBook
+    model_config = ConfigDict(from_attributes=True)
 
 
 

@@ -1,12 +1,13 @@
-from sqlalchemy import Integer, String
+from sqlalchemy import Integer, String, Enum as SQLEnum
 from sqlalchemy.orm import Mapped, mapped_column, DeclarativeBase
 from enum import Enum
+from models import Base
 
-class Base(DeclarativeBase):
-    pass
 
-class StatusBook(Enum):
+
+class StatusBook(str,Enum):
     READ = "read"
+    READING = "reading"
     UNREAD = "unread"
 
 class BooksORM(Base):
@@ -16,8 +17,12 @@ class BooksORM(Base):
     title: Mapped[str] = mapped_column(String(100))
     author: Mapped[str] = mapped_column(String(100))
     description: Mapped[str | None] = mapped_column(String(300))
-    published_year: Mapped[int]
-    status: Mapped[StatusBook]
+    published_year: Mapped[int | None] = mapped_column(Integer)
+    status: Mapped[StatusBook] = mapped_column(
+        SQLEnum(StatusBook),
+        default=StatusBook.UNREAD,
+        nullable=False
+    )
 
 
 

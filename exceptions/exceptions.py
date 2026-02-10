@@ -3,3 +3,6 @@ class HomeLiberyException(Exception):
 
 class BookAlreadyExistsException(HomeLiberyException):
     pass
+
+class BookNotFoundException(HomeLiberyException):
+    pass
