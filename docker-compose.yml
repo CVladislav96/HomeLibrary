@@ -15,6 +15,27 @@ services:
     env_file:
       - .env
 
+  app:
+    build: .
+    container_name: home_library_app
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+      SECRET_KEY: ${SECRET_KEY}
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+
 volumes:
   postgres_data:
 

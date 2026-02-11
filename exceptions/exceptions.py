@@ -1,8 +1,8 @@
-class HomeLiberyException(Exception):
+class HomeLibraryException(Exception):
     pass
 
-class BookAlreadyExistsException(HomeLiberyException):
+class BookAlreadyExistsException(HomeLibraryException):
     pass
 
-class BookNotFoundException(HomeLiberyException):
+class BookNotFoundException(HomeLibraryException):
     pass

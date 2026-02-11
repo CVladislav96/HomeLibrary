@@ -8,12 +8,14 @@ class BookBase(BaseModel):
     author: str
     description: Optional[str] = None
     published_year: Optional[int] = None
+    status: Optional[StatusBook] = None
 
 class BookCreate(BookBase):
     pass
 
 class BookUpdate(BookBase):
-    status: Optional[StatusBook] = None
+    pass
+    
 
 class BookRead(BookBase):
     id: int

@@ -1,8 +1,7 @@
 from sqlalchemy import Integer, String, Enum as SQLEnum
-from sqlalchemy.orm import Mapped, mapped_column, DeclarativeBase
+from sqlalchemy.orm import Mapped, mapped_column
 from enum import Enum
-from models import Base
-
+from . import Base
 
 
 class StatusBook(str,Enum):

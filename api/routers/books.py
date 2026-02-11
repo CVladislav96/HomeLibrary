@@ -5,12 +5,14 @@ from sqlalchemy import select
 from http import HTTPStatus
 from crud.book import*
 from exceptions.exceptions import BookNotFoundException
+from flask_login import login_required
 
 
 books_bp = Blueprint('books', __name__)
 
 
 @books_bp.route('/', methods=['POST'])
+@login_required
 def create_book():
     try:
         data = request.get_json()
@@ -46,6 +48,7 @@ def get_all_books():
         return jsonify({'error': str(e)}), HTTPStatus.INTERNAL_SERVER_ERROR #500        
 
 @books_bp.route('/<int:book_id>', methods=['PUT'])
+@login_required
 def update_book(book_id: int):
     try:
         data = request.get_json()
@@ -63,6 +66,7 @@ def update_book(book_id: int):
 
 
 @books_bp.route('/<int:book_id>', methods=['DELETE'])
+@login_required
 def delete_book(book_id):
     try:
         book = get_book_by_id_from_db(book_id)
