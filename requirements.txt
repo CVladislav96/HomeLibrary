@@ -1,0 +1,17 @@
+# Core dependencies
+flask>=3.1.2
+flask-cors>=6.0.2
+flask-marshmallow>=1.4.0
+marshmallow-sqlalchemy>=1.4.2
+psycopg2-binary>=2.9.11
+pydantic>=2.12.5
+pydantic-settings>=2.0.0
+python-dotenv>=1.2.1
+sqlalchemy>=2.0.46
+authlib>=1.3.0
+flask-login>=0.6.3
+requests>=2.31.0
+alembic>=1.18.4
+
+# Development dependencies
+ruff>=0.15.0
