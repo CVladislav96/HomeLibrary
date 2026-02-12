@@ -292,7 +292,7 @@
                             <label for="book-status">Status:</label>
                             <select id="book-status" required>
                                 <option value="">Select Status</option>
-                                <option value="want_to_read">Want to Read</option>
+                                <option value="unread">Unread</option>
                                 <option value="reading">Reading</option>
                                 <option value="read">Read</option>
                             </select>
@@ -397,6 +397,7 @@
             // Reset Form Function
             function resetForm() {
                 document.getElementById('add-book-form').reset();
+                document.getElementById('book-status').value = ''; // Reset to default option
                 const submitBtn = document.querySelector('#add-book-form button[type="submit"]');
                 submitBtn.textContent = 'Add Book';
                 submitBtn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
@@ -430,13 +431,23 @@
                     return;
                 }
                 
-                container.innerHTML = books.map(book => `
+                container.innerHTML = books.map(book => {
+                    let statusText = '';
+                    if (book.status) {
+                        if (book.status === 'unread') {
+                            statusText = 'Want to Read';
+                        } else {
+                            statusText = book.status.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase());
+                        }
+                    }
+                    
+                    return `
                     <div class="book-item">
                         <div class="book-info">
                             <h4>${book.title}</h4>
                             <p>Author: ${book.author}</p>
                             ${book.published_year ? `<p>Year: ${book.published_year}</p>` : ''}
-                            ${book.status ? `<p>Status: ${book.status.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}</p>` : ''}
+                            ${book.status ? `<p>Status: ${statusText}</p>` : ''}
                             ${book.description ? `<p>${book.description}</p>` : ''}
                         </div>
                         <div class="book-actions">
@@ -444,7 +455,8 @@
                             <button class="delete-btn" onclick="deleteBook(${book.id})">Delete</button>
                         </div>
                     </div>
-                `).join('');
+                `;
+                }).join('');
             } catch (error) {
                 document.getElementById('books-container').innerHTML = '<p>Error loading books</p>';
             }
@@ -492,7 +504,13 @@
                         } else if (text.startsWith('Year: ')) {
                             year = text.replace('Year: ', '');
                         } else if (text.startsWith('Status: ')) {
-                            status = text.replace('Status: ', '').toLowerCase().replace(/ /g, '_');
+                            let statusText = text.replace('Status: ', '').toLowerCase().replace(/ /g, '_');
+                            // Map display text to actual status values
+                            if (statusText === 'unread' || statusText === 'unread') {
+                                status = 'unread';
+                            } else {
+                                status = statusText;
+                            }
                         } else if (!text.startsWith('Author: ') && !text.startsWith('Year: ') && !text.startsWith('Status: ')) {
                             description = text;
                         }
@@ -510,8 +528,17 @@
                 // Populate form with book data
                 document.getElementById('book-title').value = bookData.title;
                 document.getElementById('book-author').value = bookData.author;
-                document.getElementById('book-year').value = bookData.year || '';
-                document.getElementById('book-status').value = bookData.status || '';
+                document.getElementById('book-year').value = bookData.published_year || '';
+                
+                const bookStatusSelect = document.getElementById('book-status');
+                if (bookData.status === 'unread') {
+                    bookStatusSelect.value = 'unread'; // Set to 'unread' for internal consistency
+                } else if (bookData.status) {
+                    bookStatusSelect.value = bookData.status;
+                } else {
+                    bookStatusSelect.value = ''; // Default to 'Select Status' option
+                }
+                
                 document.getElementById('book-description').value = bookData.description;
                 
                 // Change form button to Update

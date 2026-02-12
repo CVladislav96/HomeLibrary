@@ -234,9 +234,9 @@ python -m pytest tests/test_books.py
    gunicorn -w 4 -b 0.0.0.0:5000 app:app
    ```
 
-3. Set up reverse proxy (nginx/Apache)
-4. Configure SSL certificates
-5. Set up monitoring and logging
+3. Set up reverse proxy (nginx/Apache) # Not yet implemented
+4. Configure SSL certificates # Not yet implemented
+5. Set up monitoring and logging # Not yet implemented
 
 ### 🐳 Docker Production
 

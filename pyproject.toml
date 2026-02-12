@@ -26,45 +26,34 @@ dev = [
 ]
 
 [tool.ruff]
-# Выбор правил (рекомендуемый набор для начала)
-select = [
-    "E",   # pycodestyle errors
-    "W",   # pycodestyle warnings
-    "F",   # pyflakes
-    "I",   # isort imports sorting
-    "UP",  # pyupgrade - современный синтаксис
-    "C4",  # flake8-comprehensions
-    "B",   # flake8-bugbear
-    "A",   # flake8-builtins
-    "Q",   # flake8-quotes
-    "DTZ", # flake8-datetimez
-    "SIM", # flake8-simplify
-    "ARG", # flake8-unused-arguments
-    "PTH", # flake8-use-pathlib
-    "RUF", # ruff-specific rules
-]
-
-# Игнорировать определенные правила
-ignore = [
-    "E501",  # line too long (обрабатывается форматтером)
-    "B008",  # do not perform function calls in argument defaults
-    "C901",  # too complex
-]
-
-# Максимальная длина строки
 line-length = 88
+indent-width = 4
+target-version = "py313"
 
-# Автофикс доступных проблем
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+docstring-code-format = true
+docstring-code-line-length = 88
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle errors
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+]
+ignore = ["E501"]  # line too long
 fixable = ["ALL"]
 unfixable = []
 
-# Настройки сортировки импортов (I правил)
-[tool.ruff.isort]
-known-first-party = ["my_app"]
-lines-after-imports = 2
-combine-as-imports = true
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]  # ignore unused imports in __init__.py
+"tests/**/*.py" = ["B011"]  # ignore assert False in tests
 
-# Настройки форматирования (опционально, если не используете black)
-[tool.ruff.format]
-quote-style = "double"
-indent-width = 4
+[tool.ruff.lint.isort]
+known-first-party = ["homelibrary"]
+known-third-party = ["fastapi", "sqlalchemy", "alembic"]
+

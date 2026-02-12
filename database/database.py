@@ -1,6 +1,8 @@
 from sqlalchemy import create_engine
-from sqlalchemy.orm import Session, sessionmaker
+from sqlalchemy.orm import sessionmaker
+
 from .config import settings
+
 
 engine = create_engine(
     url=settings.DATABASE_URL,
@@ -10,8 +12,3 @@ engine = create_engine(
 )
 
 new_session = sessionmaker(bind=engine, expire_on_commit=False)
-
-
-
-
-
